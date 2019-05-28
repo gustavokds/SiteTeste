@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+</head>
+<body>
+    <div class="div_form">
+        <h2>Cadastro</h2>
+        <form>
+            
+            <input type="text" class="iNome" id="nome1" name="nome1"  placeholder="" >
+            <label  for="nome1" class="label">Primeiro Nome</label>
+            <input type="text" class="iNome" name="nome2" id="nome2" class="input2" placeholder="">
+            <label  for="nome2" class="lNome2" >Sobrenome</label>
+            <br><br>
+            <input type="email" id="email" name="email" placeholder="Email"><br>
+            <p>Data de Nascimento:
+            <input type="date" name="dtNasc" id="dtNasc" placeholder="Data de Nascimento"></p>
+            <br>
+            <p>Sexo:</p> <input type="radio" name="genero" id="genero" value="Masculino">Masculino
+            <input type="radio" name="genero" id="genero" value="Feminino">Feminino
+            <input type="radio" name="genero" id="genero" value="Outro">Outro
+            <br>
+            <p>Pergunta Secreta</p>
+            <select id="PergSecreta">
+                <option value="comida">Qual a sua comida preferida?</option>
+                <option value="escola">Qual foi sua primeira escola?</option>
+                <option value="cor">Qual sua cor preferida?</option>
+                <option value="musica">Qual sua musica preferida?</option>
+                <option value="filme">Qual seu filme preferida?</option>
+            </select>
+            <p>Resposta:
+            <input type="password" id="respSecreta"></p>
+            <br>
+            <p>Senha:</p>
+            <input type="password" name="senha" id="senha"> 
+            <br>
+            
+           <p>Confirme sua Senha:</p> 
+            <input type="password" name="senhaC" id="senhaC">
+            <br>
+            <button type="button" onclick="cadastrar()">Cadastrar</button>
+            <a href="login.html">Ja possuo Cadastro</a>
+        </form>
+    </div>
+    
+</body>
+</html>
+<script>
+    function cadastrar(){
+        if(nome1.value==''||email.value==''||respSecreta.value==''|| senha.value==''||senhaC.value==''){
+            senha.value='';
+            email.value='';
+            senhaC.value='';
+            respSecreta.value='';
+            alert('Preencha todos os campos obrigatorios')
+        }
+        else if (senha.value!= senhaC.value){
+            senha.value='';
+            email.value='';
+            senhaC.value='';
+            respSecreta.value='';
+            alert('As senhas devem coincidir')
+        }
+    }
+</script>

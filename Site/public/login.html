@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+</head>
+<body>
+    <div class="div_form_login">
+        <h2>Entrar</h2>
+        <form>
+            
+            <input type="text"  id="email" name="email"  placeholder="" >
+            <label  for="email" class="label">E-mail</label>
+            <br>
+            <input type="password"  name="senha" id="senha" placeholder="">
+            <label  for="senha" class="lsenha2" >Senha</label>
+            <br>
+           
+            <button type="button" onclick="logar()">Entrar</button>
+            <a href="Cadastro.html">Nao possuo conta</a>
+        </form>
+    </div>
+    
+</body>
+</html>
+<script>
+    function logar(){
+        if(email.value==''||senha.value==''){
+            email.value='';
+            senha.value='';
+            alert('Necessario inserir e-mail e senha');
+        }
+    }
+</script>
