@@ -21,7 +21,7 @@
             <br>
            
             <button type="button" onclick="logar()">Entrar</button>
-            <a href="Cadastro.html">Nao possuo conta</a>
+            <a href="index.html">Nao possuo conta</a>
         </form>
     </div>
     
@@ -29,10 +29,14 @@
 </html>
 <script>
     function logar(){
-        if(email.value==''||senha.value==''){
+        if(email.value==''|| senha.value==''){
             email.value='';
             senha.value='';
-            alert('Necessario inserir e-mail e senha');
+            alert('Preencha o campo e-mail');
+        }
+        else if(senha.value==''){
+            senha.value='';
+            alert('Preencha o campo senha');
         }
     }
 </script>

@@ -11,11 +11,11 @@
 <body>
     <div class="div_form">
         <h2>Cadastro</h2>
-        <form>
+        <form method="POST" id="form_cadastro" onsubmit="return cadastro()">
             
-            <input type="text" class="iNome" id="nome1" name="nome1"  placeholder="" >
+            <input type="text" class="iNome" id="nome" name="nome"  placeholder="" >
             <label  for="nome1" class="label">Primeiro Nome</label>
-            <input type="text" class="iNome" name="nome2" id="nome2" class="input2" placeholder="">
+            <input type="text" class="iNome" name="sobrenome" id="sobrenome" class="input2" placeholder="">
             <label  for="nome2" class="lNome2" >Sobrenome</label>
             <br><br>
             <input type="email" id="email" name="email" placeholder="Email"><br>
@@ -27,7 +27,7 @@
             <input type="radio" name="genero" id="genero" value="Outro">Outro
             <br>
             <p>Pergunta Secreta</p>
-            <select id="PergSecreta">
+            <select id="PergSecreta" name="PegSecreta"> 
                 <option value="comida">Qual a sua comida preferida?</option>
                 <option value="escola">Qual foi sua primeira escola?</option>
                 <option value="cor">Qual sua cor preferida?</option>
@@ -35,7 +35,7 @@
                 <option value="filme">Qual seu filme preferida?</option>
             </select>
             <p>Resposta:
-            <input type="password" id="respSecreta"></p>
+            <input type="password" name="respSecreta" id="respSecreta"></p>
             <br>
             <p>Senha:</p>
             <input type="password" name="senha" id="senha"> 
@@ -44,7 +44,7 @@
            <p>Confirme sua Senha:</p> 
             <input type="password" name="senhaC" id="senhaC">
             <br>
-            <button type="button" onclick="cadastrar()">Cadastrar</button>
+            <button>Cadastrar</button>
             <a href="login.html">Ja possuo Cadastro</a>
         </form>
     </div>
@@ -52,20 +52,68 @@
 </body>
 </html>
 <script>
-    function cadastrar(){
-        if(nome1.value==''||email.value==''||respSecreta.value==''|| senha.value==''||senhaC.value==''){
+    function cadastro(){
+        if(nome1.value==''){
             senha.value='';
-            email.value='';
             senhaC.value='';
             respSecreta.value='';
-            alert('Preencha todos os campos obrigatorios')
+            alert('Digite seu nome');
+            
         }
+        else if(email.value==''){
+            senha.value='';
+            senhaC.value='';
+            respSecreta.value='';
+            alert('Digite um e-mail');
+        }
+        else if(respSecreta.value==''){
+            senha.value='';
+            senhaC.value='';
+            respSecreta.value='';
+            alert('Digite sua resposta para a Pergunta Secreta');
+        }
+        else if(senha.value==''){
+            senha.value='';
+            senhaC.value='';
+            
+            alert('Digite a senha');
+        }
+        else if(senhaC.value==''){
+            senha.value='';
+            senhaC.value='';
+           
+            alert('Confirme sua senha');
+        }
+        
         else if (senha.value!= senhaC.value){
             senha.value='';
             email.value='';
             senhaC.value='';
             respSecreta.value='';
             alert('As senhas devem coincidir')
+        }
+        else{
+            var formulario = new URLSearchParams(new FormData(form_cadastro));
+            fetch("/usuarios/cadastrar", {
+              method: "POST",
+              body: formulario
+            }).then(function (response) {
+            
+                if (response.ok) {
+
+                    window.location.href='login.html';
+
+                } else {
+
+                    console.log('Erro de cadastro!');
+                    response.text().then(function (resposta) {
+                      div_erro.innerHTML = resposta;
+                    });
+                    finalizar_aguardar();
+                }
+        });
+
+        return false;
         }
     }
 </script>
