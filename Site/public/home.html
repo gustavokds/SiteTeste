@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+</head>
+<body>
+    <header>
+            Olá, <b id="b_usuario"></b>  
+            <a href="#" onclick="logoff()" style="color: azure">[Sair]</a>
+    </header>
+</body>
+</html>
+<script>
+
+var usuario;
+
+verificarAutenticacao();
+
+function verificarAutenticacao() {
+    usuario = sessionStorage.usuario_bandtec;
+    if (usuario == undefined) {
+        window.location.href = 'login.html';
+    } else {
+        b_usuario.innerHTML = usuario;
+    }
+}
+
+function logoff() {
+    sessionStorage.removeItem('usuario_bandtec');
+    verificarAutenticacao();
+}
+</script>

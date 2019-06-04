@@ -4,37 +4,37 @@ var router = express.Router();
 var banco = require('../app-banco');
 // não mexa nessas 3 linhas!
 
-// router.post('/entrar', function (req, res, next) {
+router.post('/entrar', function (req, res, next) {
 
-//   banco.conectar().then(() => {
-//     console.log(`Chegou p/ login: ${JSON.stringify(req.body)}`);
-//     var login = req.body.login; // depois de .body, use o nome (name) do campo em seu formulário de login
-//     var senha = req.body.senha; // depois de .body, use o nome (name) do campo em seu formulário de login
-//     if (login == undefined || senha == undefined) {
-//       throw new Error(`Dados de login não chegaram completos: ${login} / ${senha}`);
-//     }
-//     return banco.sql.query(`select * from Usuarios where login='${login}' and senha='${senha}'`);
-//   }).then(consulta => {
+  banco.conectar().then(() => {
+    console.log(`Chegou p/ login: ${JSON.stringify(req.body)}`);
+    var email = req.body.email; // depois de .body, use o nome (name) do campo em seu formulário de login
+    var senha = req.body.senha; // depois de .body, use o nome (name) do campo em seu formulário de login
+    if (email == undefined || senha == undefined) {
+      throw new Error(`Dados de login não chegaram completos: ${email} / ${senha}`);
+    }
+    return banco.sql.query(`select * from Usuarios where email='${email}' and senha='${senha}'`);
+  }).then(consulta => {
 
-//     console.log(`Usuários encontrados: ${JSON.stringify(consulta.recordset)}`);
+    console.log(`Usuários encontrados: ${JSON.stringify(consulta.recordset)}`);
 
-//     if (consulta.recordset.length==1) {
-//       res.send(consulta.recordset[0]);
-//     } else {
-//       res.sendStatus(404);
-//     }
+    if (consulta.recordset.length==1) {
+      res.send(consulta.recordset[0]);
+    } else {
+      res.sendStatus(404);
+    }
 
-//   }).catch(err => {
+  }).catch(err => {
 
-//     var erro = `Erro no login: ${err}`;
-//     console.error(erro);
-//     res.status(500).send(erro);
+    var erro = `Erro no login: ${err}`;
+    console.error(erro);
+    res.status(500).send(erro);
 
-//   }).finally(() => {
-//     banco.sql.close();
-//   });
+  }).finally(() => {
+    banco.sql.close();
+  });
 
-// });
+});
 router.post('/cadastrar', function (req, res, next) {
 
   var nome,sobrenome, email, data, sexo,perg, resp;
@@ -43,7 +43,6 @@ router.post('/cadastrar', function (req, res, next) {
 
   banco.conectar().then(() => {
     console.log(`Chegou p/ cadastro: ${JSON.stringify(req.body)}`);
-	nome = req.body.nome; // depois de .body, use o nome (name) do campo em seu formulário de login
     nome = req.body.nome; // depois de .body, use o nome (name) do campo em seu formulário de login
     sobrenome = req.body.sobrenome;
     email = req.body.email;
@@ -52,11 +51,11 @@ router.post('/cadastrar', function (req, res, next) {
     perg = req.body.PegSecreta;
     resp = req.body.respSecreta;
     senha = req.body.senha; // depois de .body, use o nome (name) do campo em seu formulário de login
-    if (login == undefined || senha == undefined || nome == undefined) {
+    if (email == undefined || senha == undefined || nome == undefined) {
 	  // coloque a frase de erro que quiser aqui. Ela vai aparecer no formulário de cadastro
       throw new Error(`Dados de cadastro não chegaram completos: ${email} / ${senha} / ${nome}`);
     }
-    return banco.sql.query(`select count(*) as contagem from usuario where email = '${email}'`);
+    return banco.sql.query(`select count(*) as contagem from Usuarios where email = '${email}'`);
   }).then(consulta => {
 
 	if (consulta.recordset[0].contagem >= 1) {

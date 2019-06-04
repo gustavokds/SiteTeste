@@ -11,7 +11,7 @@
 <body>
     <div class="div_form">
         <h2>Cadastro</h2>
-        <form method="POST" id="form_cadastro" onsubmit="return cadastro()">
+        <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
             
             <input type="text" class="iNome" id="nome" name="nome"  placeholder="" >
             <label  for="nome1" class="label">Primeiro Nome</label>
@@ -52,37 +52,39 @@
 </body>
 </html>
 <script>
-    function cadastro(){
-        if(nome1.value==''){
+    function cadastrar(){
+        if(nome.value==''){
             senha.value='';
             senhaC.value='';
             respSecreta.value='';
             alert('Digite seu nome');
-            
+            return false;
         }
         else if(email.value==''){
             senha.value='';
             senhaC.value='';
             respSecreta.value='';
             alert('Digite um e-mail');
+            return false;
         }
         else if(respSecreta.value==''){
             senha.value='';
             senhaC.value='';
             respSecreta.value='';
             alert('Digite sua resposta para a Pergunta Secreta');
+            return false;
         }
         else if(senha.value==''){
             senha.value='';
-            senhaC.value='';
-            
+            senhaC.value='';            
             alert('Digite a senha');
+            return false;
         }
         else if(senhaC.value==''){
             senha.value='';
-            senhaC.value='';
-           
+            senhaC.value='';           
             alert('Confirme sua senha');
+            return false;
         }
         
         else if (senha.value!= senhaC.value){
@@ -90,27 +92,28 @@
             email.value='';
             senhaC.value='';
             respSecreta.value='';
-            alert('As senhas devem coincidir')
+            alert('As senhas devem coincidir');
+            return false;
         }
         else{
             var formulario = new URLSearchParams(new FormData(form_cadastro));
-            fetch("/usuarios/cadastrar", {
-              method: "POST",
-              body: formulario
-            }).then(function (response) {
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (response) {
             
-                if (response.ok) {
+            if (response.ok) {
 
-                    window.location.href='login.html';
+                window.location.href='login.html';
 
-                } else {
+            } else {
 
-                    console.log('Erro de cadastro!');
-                    response.text().then(function (resposta) {
-                      div_erro.innerHTML = resposta;
-                    });
-                    finalizar_aguardar();
-                }
+                console.log('Erro de cadastro!');
+                response.text().then(function (resposta) {
+                    alert( resposta);
+                });
+                
+            }
         });
 
         return false;

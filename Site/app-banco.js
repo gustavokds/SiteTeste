@@ -17,10 +17,10 @@ var configuracoes = {
         }
     },
     desenvolvimento: {
-        server: "BASETESTE.database.windows.net",
-        user: "usuariotestes",
-        password: "senhatestes",
-        database: "BASETESTE",
+        server: "bd-gus.database.windows.net",
+        user: "adm",
+        password: "#Gf47252577880",
+        database: "Bd-gus",
         options: {
             encrypt: true
         }

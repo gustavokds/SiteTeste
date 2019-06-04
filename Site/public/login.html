@@ -11,7 +11,7 @@
 <body>
     <div class="div_form_login">
         <h2>Entrar</h2>
-        <form>
+        <form id="form_login" method="post" onsubmit="return entrar()">
             
             <input type="text"  id="email" name="email"  placeholder="" >
             <label  for="email" class="label">E-mail</label>
@@ -20,7 +20,7 @@
             <label  for="senha" class="lsenha2" >Senha</label>
             <br>
            
-            <button type="button" onclick="logar()">Entrar</button>
+            <button>Entrar</button>
             <a href="index.html">Nao possuo conta</a>
         </form>
     </div>
@@ -28,15 +28,45 @@
 </body>
 </html>
 <script>
-    function logar(){
-        if(email.value==''|| senha.value==''){
+    function verificarAutenticacao() {
+        if (sessionStorage.usuario_bandtec != undefined) {
+            window.location.href = 'home.html';
+        }
+    }
+    function entrar(){
+        if(email.value==''){
             email.value='';
             senha.value='';
             alert('Preencha o campo e-mail');
+            return false;
         }
         else if(senha.value==''){
             senha.value='';
             alert('Preencha o campo senha');
+            return false;
+        }
+        else{
+            var formulario = new URLSearchParams(new FormData(form_login));
+        fetch("/usuarios/entrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (response) {
+            
+            if (response.ok) {
+
+                response.json().then(function (resposta) {
+
+                    sessionStorage.usuario_bandtec = resposta.Nome;
+                    verificarAutenticacao();
+
+                });
+            } else {
+
+                console.log('Erro de login!');
+            }
+        });
+
+        return false;
         }
     }
 </script>
