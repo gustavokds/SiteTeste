@@ -22,6 +22,10 @@ input:not(:placeholder-shown) + label{
   margin-top: 0;
   color: #fff;
 }
+h1{
+  text-align: center;
+  color: #ffff
+}
 body{
     margin: 0;
     padding: 0;
